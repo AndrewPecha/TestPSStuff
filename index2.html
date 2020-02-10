@@ -1,0 +1,64 @@
+<html>
+    <header>
+        <style>
+            .testLoader {
+                width:100%;
+                height:100%;
+                background: rgba(255, 255, 255, 0) url(LoadingIcons/TestLoader.gif) no-repeat;
+                background-size: contain;
+                position: absolute;
+                visibility: hidden;
+                left: 60%;
+            }
+
+            .animate {
+                -webkit-animation-name: buttonLoader;
+                animation-name: buttonLoader;
+                -webkit-animation-duration: 1s;
+                animation-duration: 1s;
+                -webkit-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
+            }
+
+            @-webkit-keyframes buttonLoader {
+                0% {visibility: visible; left: 60%;}
+                50% {visibility: visible; left: 110%}
+                100% {visibility: visible; left: 110%}
+            } 
+
+            @keyframes buttonLoader {
+                0% {visibility: visible; left: 60%;}                
+                50% {visibility: visible; left: 110%}
+                100% {visibility: visible; left: 110%}
+            }  
+
+            .test-button {
+                position: relative;
+            }
+
+            .button-container {
+                position: relative;
+                display: inline-block;
+            }
+        </style>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">            
+        </script>
+        
+        <script>
+            function addAnimate(){
+                $('.testLoader').addClass('animate');
+                setTimeout(function(){$('.testLoader').removeClass('animate');},
+                3000)
+            }
+        </script>
+    </header>
+    <body>
+        <button type="submit" class="test-button" onclick="addAnimate()">
+            <div class='testLoader'></div>
+            foo bar baz2
+        </button>        
+    </body>
+</html>
