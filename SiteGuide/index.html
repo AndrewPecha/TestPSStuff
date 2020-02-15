@@ -1,0 +1,24 @@
+<html>
+    <style>
+        .pulse {
+            -webkit-animation-name: pulse;
+            animation-name: pulse;
+
+            -webkit-animation-iteration-count: infinite;
+            animation-iteration-count: infinite;
+
+            -webkit-animation-duration: 3s;
+            animation-duration: 3s;
+        }
+
+        /*hoffset voffset blur spread color*/
+        @keyframes pulse {
+            0% { box-shadow: 0 0 5px 2px red; }
+            50% { box-shadow: 0 0 20px 2px red; }
+            100% { box-shadow: 0 0 5px 2px red; }
+        }
+    </style>
+    <body>
+        <button class='pulse'>Click me!</button>
+    </body>
+</html>
