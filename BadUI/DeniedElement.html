@@ -1,0 +1,74 @@
+<html>
+    <script src="/lib/js/jquery.min.js"></script>
+
+    <style>
+        #MainDiv {
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+        }
+
+        /*to calculate width and height for a square element:
+        (parentElementSize) - (insideBorder x 2)*/
+        .denied::before {
+            position: absolute;
+            width: 44px;
+            height: 44px;
+            content: '';
+            border: 3px solid red;
+        }
+
+        .denied::after {
+            position: absolute;
+            width: 65px;
+            height: 0;
+            top: 33px;
+            left: 1px;
+            content: '';
+            border-top: 3px solid red;
+            transform: rotate(-45deg);
+        } 
+
+        .denied {
+            animation: fadeOut 1.4s;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1 }
+            to { opacity: 0}
+        }       
+    </style>
+    <script>
+        //https://stackoverflow.com/a/6303311
+        function addDenied() {
+            if (!$('#InnerDiv').hasClass('denied'))
+                $('#InnerDiv').addClass('denied');
+
+            else {
+                var el = $('#InnerDiv');
+                el.each(function() {
+                    this.style.animation = 'none';
+                    this.offsetHeight; /* trigger reflow */
+                    this.style.animation = null; 
+                })
+                
+            }
+        }
+
+        $(document).ready(function() {
+            $('#InnerDiv').on("webkitAnimationEnd oanimationend msAnimationEnd animationend",
+                function() {
+                    $('#InnerDiv').removeClass('denied');
+                }
+            );
+        })
+    </script>
+    
+    <body>
+        <div id='MainDiv'><div id='InnerDiv'></div></div>
+        <br/>
+        <input type="button" value="click!" onclick='addDenied()'>
+    </body>
+
+ 
+</html>
