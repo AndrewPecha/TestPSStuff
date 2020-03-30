@@ -21,8 +21,7 @@
         .denied::after {
             position: absolute;
             width: 65px;
-            height: 0;
-            top: 33px;
+            top: 32.5px;
             left: 1px;
             content: '';
             border-top: 3px solid red;
@@ -30,6 +29,15 @@
         } 
 
         .denied {
+            animation: fadeOut 1.4s;
+        }
+
+        #InnerSvg {
+            opacity: 0;
+            animation: fadeOut 1.4s;
+        }
+
+        .deniedSvg {
             animation: fadeOut 1.4s;
         }
 
@@ -41,18 +49,35 @@
     <script>
         //https://stackoverflow.com/a/6303311
         function addDenied() {
-            if (!$('#InnerDiv').hasClass('denied'))
-                $('#InnerDiv').addClass('denied');
+            // // if (!$('#InnerDiv').hasClass('denied'))
+            // //     $('#InnerDiv').addClass('denied');
 
-            else {
-                var el = $('#InnerDiv');
-                el.each(function() {
-                    this.style.animation = 'none';
-                    this.offsetHeight; /* trigger reflow */
-                    this.style.animation = null; 
-                })
+            // // else {
+            // //     var el = $('#InnerDiv');
+            // //     el.each(function() {
+            // //         this.style.animation = 'none';
+            // //         this.offsetHeight; /* trigger reflow */
+            // //         this.style.animation = null; 
+            // //     })
                 
-            }
+            // // }
+
+            // if (!$('#InnerSvg').hasClass('deniedSvg'))
+            //     $('#InnerSvg').addClass('deniedSvg');
+
+            // else {
+            //     var el = $('#InnerSvg');
+            //     el.each(function() {
+            //         debugger;
+            //         this.style.animation = 'none';
+            //         this.offsetHeight; /* trigger reflow */
+            //         this.style.animation = null; 
+            //     });                
+            // }
+
+            $('#MainDiv').each(function() {
+                this.innerHTML = '<svg height="50" width="50" id="InnerSvg"><line x1="0" y1="50" x2="50" y2="0" style="stroke:rgb(255,0,0);stroke-width:1"></line><polygon points="0,0 0,50 50,50 50,0" style="fill:transparent;stroke:red;stroke-width:1" /></svg>';
+            });
         }
 
         $(document).ready(function() {
@@ -61,11 +86,24 @@
                     $('#InnerDiv').removeClass('denied');
                 }
             );
+
+            $('#InnerSvg').on("webkitAnimationEnd oanimationend msAnimationEnd animationend",
+                function() {
+                    $('#InnerSvg').removeClass('deniedSvg');
+                }
+            );
         })
     </script>
     
     <body>
-        <div id='MainDiv'><div id='InnerDiv'></div></div>
+        <div id='MainDiv'>
+            <!-- <svg height="50" width="50" id="InnerSvg">
+                <line x1="0" y1="50" x2="50" y2="0" style="stroke:rgb(255,0,0);stroke-width:1"></line>
+                <polygon points="0,0 0,50 50,50 50,0" style="fill:transparent;stroke:red;stroke-width:1" />
+            </svg> -->
+            <!-- <div id='InnerDiv'></div> -->
+        </div>
+
         <br/>
         <input type="button" value="click!" onclick='addDenied()'>
     </body>
